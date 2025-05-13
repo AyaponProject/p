@@ -1,33 +1,123 @@
-
-
 <!DOCTYPE html>
-<html lang="ja">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Drive Images</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      text-align: center;
+      font-family: sans-serif;
+    }
+    img {
+      max-width: 90vw;
+      height: auto;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-top: 30px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 20px 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      background-color: #3c78d8;
+      color: white;
+      cursor: pointer;
+    }
+    button:disabled {
+      background-color: #ccc;
+      cursor: default;
+    }
+  </style>
 </head>
 <body>
-  <h1>画像一覧</h1>
-  <div id="gallery"></div>
+  <div id="currentDateTime" style="
+    position: fixed;
+    top: 15px;
+    right: 25px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+    background: rgba(255,255,255,0.9);
+    padding: 8px 8px;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    z-index: 1000;
+  ">
+    読み込み中...
+  </div>
+  <h2>あやぽんスケジュール表</h2>
+  <img id="scheduleImage" src="" alt="スケジュール画像">
+  <br>
+  <button id="prevBtn">前へ</button>
+  <button id="nextBtn">次へ</button>
 
   <script>
-    const apiUrl = "https://script.google.com/macros/s/AKfycbyHcnJ2B-e7IuVrWWt2WgIoDOkDQvm2J497LDzi5sGk4n3KsjRwJdTS7gKlZjWJR0oUEg/exec"; // ここにGASのURL
+    const apiUrl = "https://script.google.com/macros/s/AKfycbyHcnJ2B-e7IuVrWWt2WgIoDOkDQvm2J497LDzi5sGk4n3KsjRwJdTS7gKlZjWJR0oUEg/exec"; // あなたのGAS URLに変更
 
+    let images = [];
+    let currentIndex = 0;
+
+    const imgTag = document.getElementById('scheduleImage');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    function updateImage() {
+      if (images.length === 0) return;
+      imgTag.src = images[currentIndex].url;
+      prevBtn.disabled = currentIndex === 0;
+      nextBtn.disabled = currentIndex === images.length - 1;
+    }
+
+    prevBtn.addEventListener('click', () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        updateImage();
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (currentIndex < images.length - 1) {
+        currentIndex++;
+        updateImage();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') {
+        prevBtn.click();
+      } else if (event.key === 'ArrowRight') {
+        nextBtn.click();
+      }
+    });
+
+    // 時刻表示
+    function updateCurrentDateTime() {
+      const now = new Date();
+      const days = ["日", "月", "火", "水", "木", "金", "土"];
+      const formatted = now.getFullYear() + "年" +
+                        String(now.getMonth() + 1).padStart(2, '0') + "月" +
+                        String(now.getDate()).padStart(2, '0') + "日(" +
+                        days[now.getDay()] + ") " +
+                        String(now.getHours()).padStart(2, '0') + ":" +
+                        String(now.getMinutes()).padStart(2, '0');
+      document.getElementById("currentDateTime").textContent = formatted;
+    }
+    updateCurrentDateTime();
+    setInterval(updateCurrentDateTime, 60000);
+
+    // 🔽 APIから画像取得
     fetch(apiUrl)
-      .then(response => response.json())
-      .then(images => {
-        const container = document.getElementById("gallery");
-        images.forEach(image => {
-          const img = document.createElement("img");
-          img.src = image.url;
-          img.alt = image.name;
-          img.style.width = "200px";
-          img.style.margin = "10px";
-          container.appendChild(img);
-        });
+      .then(res => res.json())
+      .then(data => {
+        images = data.map(f => ({
+          url: "https://lh3.googleusercontent.com/d/" + f.id
+        }));
+        updateImage();
       })
-      .catch(error => {
-        console.error("エラー:", error);
+      .catch(err => {
+        console.error("画像の取得に失敗しました:", err);
+        document.getElementById("currentDateTime").textContent = "画像取得エラー";
       });
   </script>
 </body>
