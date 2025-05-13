@@ -30,9 +30,28 @@
       background-color: #ccc;
       cursor: default;
     }
+    .spinner {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #3c78d8;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      margin: -25px 0 0 -25px;
+      z-index: 2000;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
+  <div id="loader" class="spinner"></div>
   <div id="currentDateTime" style="
     position: fixed;
     top: 15px;
@@ -121,6 +140,23 @@
         console.error("画像の取得に失敗しました:", err);
         document.getElementById("currentDateTime").textContent = "画像取得エラー";
       });
+
+        function updateImage() {
+      if (images.length === 0) return;
+    
+      // 🔸 スピナー表示
+      document.getElementById('loader').style.display = 'block';
+    
+      imgTag.onload = () => {
+        // 🔸 画像読み込まれたら非表示
+        document.getElementById('loader').style.display = 'none';
+      };
+    
+      imgTag.src = images[currentIndex].url;
+    
+      prevBtn.disabled = currentIndex === 0;
+      nextBtn.disabled = currentIndex === images.length - 1;
+    }
   </script>
 </body>
 </html>
