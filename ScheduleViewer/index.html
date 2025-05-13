@@ -1,11 +1,34 @@
+
+
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="refresh" content="0; url=https://script.google.com/macros/s/AKfycbxNVTDIr7dDUSLKSD5Mi782w_BIBt_eNm7uf6yDFCkkWC5Gl0ZodY9GNNy6RFU9Nu3t/exec">
-    <title>Redirecting...</title>
-  </head>
-  <body>
-    <p>リダイレクト中です…</p>
-  </body>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Drive Images</title>
+</head>
+<body>
+  <h1>画像一覧</h1>
+  <div id="gallery"></div>
+
+  <script>
+    const apiUrl = "https://script.google.com/macros/s/AKfycbyHcnJ2B-e7IuVrWWt2WgIoDOkDQvm2J497LDzi5sGk4n3KsjRwJdTS7gKlZjWJR0oUEg/exec"; // ここにGASのURL
+
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(images => {
+        const container = document.getElementById("gallery");
+        images.forEach(image => {
+          const img = document.createElement("img");
+          img.src = image.url;
+          img.alt = image.name;
+          img.style.width = "200px";
+          img.style.margin = "10px";
+          container.appendChild(img);
+        });
+      })
+      .catch(error => {
+        console.error("エラー:", error);
+      });
+  </script>
+</body>
 </html>
