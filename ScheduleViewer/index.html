@@ -1,11 +1,169 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="refresh" content="0; url=https://script.google.com/macros/s/AKfycbxNVTDIr7dDUSLKSD5Mi782w_BIBt_eNm7uf6yDFCkkWC5Gl0ZodY9GNNy6RFU9Nu3t/exec">
-    <title>Redirecting...</title>
-  </head>
-  <body>
-    <p>リダイレクト中です…</p>
-  </body>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>あやぽんスケジュールビューアー</title>
+  <link rel="icon" href="icon.png" type="image/png">
+  <style>
+    body {
+      text-align: center;
+      font-family: sans-serif;
+    }
+    img {
+      max-width: 90vw;
+      height: auto;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-top: 30px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 20px 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      background-color: #3c78d8;
+      color: white;
+      cursor: pointer;
+    }
+    button:disabled {
+      background-color: #ccc;
+      cursor: default;
+    }
+    .spinner {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #3c78d8;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      margin: -25px 0 0 -25px;
+      z-index: 2000;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div id="loader" class="spinner"></div>
+  <div id="currentDateTime" style="
+    position: fixed;
+    top: 15px;
+    right: 25px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+    background: rgba(255,255,255,0.9);
+    padding: 8px 8px;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    z-index: 1000;
+  ">
+    読み込み中...
+  </div>
+  <h2>あやぽんスケジュール表</h2>
+  <img id="scheduleImage" src="" alt="スケジュール画像" style="display: none;">
+  <br>
+  <button id="prevBtn">前へ</button>
+  <button id="nextBtn">次へ</button>
+
+  <script>
+    const apiUrl = "https://script.google.com/macros/s/AKfycbyHcnJ2B-e7IuVrWWt2WgIoDOkDQvm2J497LDzi5sGk4n3KsjRwJdTS7gKlZjWJR0oUEg/exec"; // あなたのGAS URLに変更
+
+    let images = [];
+    let currentIndex = 0;
+
+    const imgTag = document.getElementById('scheduleImage');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    function updateImage() {
+      if (images.length === 0) return;
+      imgTag.src = images[currentIndex].url;
+      prevBtn.disabled = currentIndex === 0;
+      nextBtn.disabled = currentIndex === images.length - 1;
+    }
+
+    prevBtn.addEventListener('click', () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        updateImage();
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (currentIndex < images.length - 1) {
+        currentIndex++;
+        updateImage();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') {
+        prevBtn.click();
+      } else if (event.key === 'ArrowRight') {
+        nextBtn.click();
+      }
+    });
+
+    // 時刻表示
+    function updateCurrentDateTime() {
+      const now = new Date();
+      const days = ["日", "月", "火", "水", "木", "金", "土"];
+      const formatted = now.getFullYear() + "年" +
+                        String(now.getMonth() + 1).padStart(2, '0') + "月" +
+                        String(now.getDate()).padStart(2, '0') + "日(" +
+                        days[now.getDay()] + ") " +
+                        String(now.getHours()).padStart(2, '0') + ":" +
+                        String(now.getMinutes()).padStart(2, '0');
+      document.getElementById("currentDateTime").textContent = formatted;
+    }
+    updateCurrentDateTime();
+    setInterval(updateCurrentDateTime, 60000);
+
+    // 🔽 APIから画像取得
+    fetch(apiUrl)
+      .then(res => res.json())
+      .then(data => {
+        images = data.map(f => ({
+          url: "https://lh3.googleusercontent.com/d/" + f.id
+        }));
+        updateImage();
+      })
+      .catch(err => {
+        console.error("画像の取得に失敗しました:", err);
+        document.getElementById("currentDateTime").textContent = "画像取得エラー";
+      });
+
+      function updateImage() {
+        if (images.length === 0) return;
+      
+        document.getElementById('loader').style.display = 'block';
+        imgTag.style.display = 'none'; // 一旦非表示（ロード中）
+      
+        const loadingImage = new Image();
+        loadingImage.onload = () => {
+          imgTag.src = loadingImage.src;
+          imgTag.style.display = 'inline'; // ✅ 読み込み成功時に表示
+          document.getElementById('loader').style.display = 'none';
+      
+          prevBtn.disabled = currentIndex === 0;
+          nextBtn.disabled = currentIndex === images.length - 1;
+        };
+        loadingImage.onerror = () => {
+          document.getElementById('loader').style.display = 'none';
+          document.getElementById('currentDateTime').textContent = "画像の読み込みに失敗しました";
+        };
+      
+        loadingImage.src = images[currentIndex].url;
+      }
+
+  </script>
+</body>
 </html>
