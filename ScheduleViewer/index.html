@@ -141,22 +141,28 @@
         document.getElementById("currentDateTime").textContent = "画像取得エラー";
       });
 
-        function updateImage() {
-      if (images.length === 0) return;
-    
-      // 🔸 スピナー表示
-      document.getElementById('loader').style.display = 'block';
-    
-      imgTag.onload = () => {
-        // 🔸 画像読み込まれたら非表示
-        document.getElementById('loader').style.display = 'none';
-      };
-    
-      imgTag.src = images[currentIndex].url;
-    
-      prevBtn.disabled = currentIndex === 0;
-      nextBtn.disabled = currentIndex === images.length - 1;
-    }
+      function updateImage() {
+        if (images.length === 0) return;
+      
+        // 🔸 スピナー表示
+        document.getElementById('loader').style.display = 'block';
+      
+        const loadingImage = new Image();
+        loadingImage.onload = () => {
+          imgTag.src = loadingImage.src; // 読み込み成功後に表示用にセット
+          document.getElementById('loader').style.display = 'none';
+      
+          // ボタン制御
+          prevBtn.disabled = currentIndex === 0;
+          nextBtn.disabled = currentIndex === images.length - 1;
+        };
+        loadingImage.onerror = () => {
+          document.getElementById('loader').style.display = 'none';
+          document.getElementById('currentDateTime').textContent = "画像の読み込みに失敗しました";
+        };
+        loadingImage.src = images[currentIndex].url;
+      }
+
   </script>
 </body>
 </html>
