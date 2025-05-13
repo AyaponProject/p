@@ -68,7 +68,7 @@
     読み込み中...
   </div>
   <h2>あやぽんスケジュール表</h2>
-  <img id="scheduleImage" src="" alt="スケジュール画像">
+  <img id="scheduleImage" src="" alt="スケジュール画像" style="display: none;">
   <br>
   <button id="prevBtn">前へ</button>
   <button id="nextBtn">次へ</button>
@@ -144,15 +144,15 @@
       function updateImage() {
         if (images.length === 0) return;
       
-        // 🔸 スピナー表示
         document.getElementById('loader').style.display = 'block';
+        imgTag.style.display = 'none'; // 一旦非表示（ロード中）
       
         const loadingImage = new Image();
         loadingImage.onload = () => {
-          imgTag.src = loadingImage.src; // 読み込み成功後に表示用にセット
+          imgTag.src = loadingImage.src;
+          imgTag.style.display = 'inline'; // ✅ 読み込み成功時に表示
           document.getElementById('loader').style.display = 'none';
       
-          // ボタン制御
           prevBtn.disabled = currentIndex === 0;
           nextBtn.disabled = currentIndex === images.length - 1;
         };
@@ -160,6 +160,7 @@
           document.getElementById('loader').style.display = 'none';
           document.getElementById('currentDateTime').textContent = "画像の読み込みに失敗しました";
         };
+      
         loadingImage.src = images[currentIndex].url;
       }
 
