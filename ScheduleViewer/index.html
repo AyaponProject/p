@@ -64,7 +64,7 @@
 
     #buttonContainer {
       position: fixed;
-      bottom: 20px;
+      bottom: 5px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
@@ -72,18 +72,6 @@
       z-index: 1000;
     }
 
-    /* スマホ画面でボタンサイズを大きめに */
-    @media (max-width: 600px) {
-      #buttonContainer {
-        flex-direction: column;
-        gap: 12px;
-      }
-
-      #buttonContainer button {
-        width: 100px;
-        font-size: 18px;
-      }
-    }
   </style>
 </head>
 <body>
@@ -103,7 +91,7 @@
   ">
     読み込み中...
   </div>
-  <h2 id="mainTitle"></h2id>あやぽんスケジュールビューアー</h2>
+  <h3 id="mainTitle"></h2id>あやぽんスケジュールビューアー</h3>
     <img id="scheduleImage" src="" alt="スケジュール画像" style="display: none;">
   
   <br>
