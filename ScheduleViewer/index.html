@@ -48,6 +48,42 @@
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
+
+    #mainTitle {
+      margin-top: 20px;
+    }
+
+    @media (max-width: 880px) {
+      #mainTitle {
+        order: 2; /* Flexboxを使ってる場合 */
+        margin-top: 60px;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+    }
+
+    #buttonContainer {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+      z-index: 1000;
+    }
+
+    /* スマホ画面でボタンサイズを大きめに */
+    @media (max-width: 600px) {
+      #buttonContainer {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      #buttonContainer button {
+        width: 100px;
+        font-size: 18px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -67,11 +103,16 @@
   ">
     読み込み中...
   </div>
-  <h2>あやぽんスケジュールビューアー</h2>
-  <img id="scheduleImage" src="" alt="スケジュール画像" style="display: none;">
+  <h2 id="mainTitle"></h2id>あやぽんスケジュールビューアー</h2>
+    <img id="scheduleImage" src="" alt="スケジュール画像" style="display: none;">
+  
   <br>
-  <button id="prevBtn">前へ</button>
-  <button id="nextBtn">次へ</button>
+  
+  <div id="buttonContainer">
+    <button id="prevBtn" disabled="true">前へ</button>
+    <button id="nextBtn">次へ</button>
+  </div>
+  
 
   <script>
     const apiUrl = "https://script.google.com/macros/s/AKfycbyHcnJ2B-e7IuVrWWt2WgIoDOkDQvm2J497LDzi5sGk4n3KsjRwJdTS7gKlZjWJR0oUEg/exec"; // あなたのGAS URLに変更
