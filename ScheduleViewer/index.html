@@ -160,9 +160,7 @@
     fetch(apiUrl)
       .then(res => res.json())
       .then(data => {
-        images = data.map(f => ({
-          url: "https://lh3.googleusercontent.com/d/" + f.id
-        }));
+        images = data;
         updateImage();
       })
       .catch(err => {
