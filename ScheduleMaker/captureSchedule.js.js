@@ -7,6 +7,15 @@ createApp({
 
     function makePng() {
       if (!captureArea.value) return;
+
+      // 日付を YYYY-MM-DD 形式で取得
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = String(today.getMonth() + 1).padStart(2, '0');
+      const day = String(today.getDate()).padStart(2, '0');
+      const formattedDate = `${year}-${month}-${day}`;
+      const fileName = `スケジュール${formattedDate}.png`;
+
       html2canvas(captureArea.value, {
         width: 1280,
         height: 720,
@@ -15,7 +24,7 @@ createApp({
       }).then(canvas => {
         const link = document.createElement('a');
         link.href = canvas.toDataURL('image/png');
-        link.download = 'capture-1280x720.png';
+        link.download = fileName;
         link.click();
       });
     }
