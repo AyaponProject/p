@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>1280x720 PNG作成テスト</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/vue@3"></script>
+  <script src="html2canvas.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h1>PNG作成（1280×720）</h1>
+    <div class="capture-area" ref="captureArea">
+        <div id="1" class="parentDiv" style="margin-top: 140px;">
+          <div class="DateDiv"><a class="dayOfMonthFont"></a>
+        </div> <!-- 月曜日 -->
+
+        <div id="2" class="parentDiv" style="margin-top: 15px;">
+          <div class="DateDiv"><a class="dayOfMonthFont"></a></div>
+        </div> <!-- 火曜日 -->
+
+        <div id="3" class="parentDiv" style="margin-top: 15px;">
+          <div class="DateDiv"><a class="dayOfMonthFont"></a></div>
+        </div> <!-- 水曜日 -->
+
+        <div id="4" class="parentDiv" style="margin-top: 14px;">
+          <div class="DateDiv"><a class="dayOfMonthFont"></a></div>
+        </div> <!-- 木曜日 -->
+
+        <div id="5" class="parentDiv" style="margin-top: 15px;">
+          <div class="DateDiv"><a class="dayOfMonthFont"></a></div>
+        </div> <!-- 金曜日 -->
+
+        <div id="6" class="parentDiv" style="margin-top: 14px;">
+          <div class="DateDiv"><a class="dayOfMonthFont"></a></div>
+        </div> <!-- 土曜日 -->
+
+        <div id="7" class="parentDiv" style="margin-top: 15px;">
+          <div class="DateDiv"><a class="dayOfMonthFont"></a></div>
+        </div> <!-- 日曜日 -->
+
+    </div>
+
+    <button @click="makePng">PNG作成</button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
