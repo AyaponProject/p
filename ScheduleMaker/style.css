@@ -23,13 +23,27 @@ body {
     width: 141px;
     height: 66px;
     display: flex;
-    background-color: rgb(30, 210, 210);
-    opacity: 0.3;
   }
 
   .dayOfMonthFont{
-    font-size: 32px;
+    font-family: 'Nikumaru', sans-serif;
+    color: white;
+    font-size: 40px;
     margin-top: 17px;
-    margin-left: 22px;
-    background-color: chocolate;
+    margin-left: 18px;
   }
+
+  .dayOfWeekFont{
+    font-family: 'Nikumaru', sans-serif;
+    color: white;
+    font-size: 21px;
+    margin-top: 28px;
+    margin-left: 1px;
+  }
+
+  @font-face {
+  font-family: 'Nikumaru';
+  src: url('./fonts/07にくまるフォント.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
