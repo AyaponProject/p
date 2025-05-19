@@ -9,7 +9,17 @@
 </head>
 <body>
   <div id="app">
-    <h1>PNG作成（1280×720）</h1>
+    <div style="display: flex; justify-content: center; align-items: baseline; gap: 1em;">
+    <h1 style="margin: 0;">スケジュールメーカー</h1>
+    <h3 id="outputDate"></h3>
+  </div>
+
+
+    <div class="weekButtonArea">
+    <button onclick="goToPreviousWeek()">先週へ</button>
+    <button onclick="goToNextWeek()">来週へ</button>
+    </div>
+
     <div class="capture-area" ref="captureArea">
         <div id="1" class="parentDiv" style="margin-top: 140px;">
           <div class="DateDiv"><a class="dayOfMonthFont"></a>
@@ -40,9 +50,10 @@
         </div> <!-- 日曜日 -->
     </div>
 
-    <button @click="makePng">PNG作成</button>
+    <button @click="makePng">画像ダウンロード</button>
   </div>
 
   <script src="captureSchedule.js"></script>
+  <script src="setDate.js"></script>
 </body>
 </html>
