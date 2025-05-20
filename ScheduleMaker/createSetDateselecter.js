@@ -7,6 +7,12 @@ for (let i = 1; i <= n; i++) {
     const clone = template.cloneNode(true);
     clone.id = `select-${i}`;
     clone.style.display = 'inline'; // 表示する
+
+    // --- 変更を察知するイベントを追加 ---
+    clone.addEventListener('change', function () {
+      //後で実装
+    });
+
     container.appendChild(clone);
     container.appendChild(document.createElement('br')); // 改行用
 }
