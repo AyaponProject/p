@@ -70,15 +70,28 @@
   </div>
 
   <!-- 元になるテンプレート（非表示にしておく） -->
+   <!-- セレクタ -->
   <select id="select-template" style="display: none;" class="select-template">
     <option value="1" selected>1</option>
     <option value="2">2</option>
     <option value="3">3</option>
   </select>
 
+  <!-- １回の場合-->
+  <div id="oneTime">
+    <div><select id="oneTimeSelect" class="titleSelect titleFont"></select></div>
+  </div>
+
+  <!-- 2回の場合 -->
+  <div id="twoTimes" style="display: none;"></div>
+
+  <!-- 3回の場合-->
+  <div id="threeTimes" style="display: none;"></div>
+
   <script src="captureSchedule.js"></script>
   <script src="setDate.js"></script>
   <script src="setTimeSelect.js"></script>
   <script src="createSetDateselecter.js"></script>
+  <script src="createTitleSelecter.js"></script>
 </body>
 </html>

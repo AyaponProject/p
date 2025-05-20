@@ -89,9 +89,26 @@ body {
     width: 73%;
   }
 
+  .titleSelect{
+    font-family: 'CheckPoint', sans-serif;
+    font-size: 38px;
+    color: black;
+    background-color: transparent;
+    appearance: none; /* スタイリング自由にする */
+    margin-top: 10px;
+    margin-left: 12px;
+  }
+
   @font-face {
-  font-family: 'Nikumaru';
-  src: url('./fonts/07にくまるフォント.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-}
+    font-family: 'Nikumaru';
+    src: url('./fonts/07にくまるフォント.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'CheckPoint';
+    src: url('./fonts/CP_Font.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
