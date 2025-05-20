@@ -85,6 +85,10 @@ body {
     margin-bottom: 46px;
   }
 
+  .chilldDivArea{
+    width: 73%;
+  }
+
   @font-face {
   font-family: 'Nikumaru';
   src: url('./fonts/07にくまるフォント.otf') format('opentype');

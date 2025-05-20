@@ -10,7 +10,11 @@ for (let i = 1; i <= n; i++) {
 
     // --- 変更を察知するイベントを追加 ---
     clone.addEventListener('change', function () {
-      //後で実装
+      // 1. selectのID（例：select-3）から数字だけ抽出
+      const idNum = this.id.match(/\d+/)?.[0];
+
+      // 2. 対応するchildDivArea-{数字}を取得
+      const targetDiv = document.getElementById(`childDivArea-${idNum}`);
     });
 
     container.appendChild(clone);
