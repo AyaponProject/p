@@ -14,6 +14,8 @@
     <h3 id="outputDate"></h3>
   </div>
 
+    <!-- 複製先コンテナ -->
+    <div id="container"></div>
 
     <div class="weekButtonArea">
     <button onclick="goToPreviousWeek()">先週へ</button>
@@ -60,8 +62,16 @@
     <button @click="makePng">画像ダウンロード</button>
   </div>
 
+  <!-- 元になるテンプレート（非表示にしておく） -->
+  <select id="select-template" style="display: none;" class="select-template">
+    <option value="1" selected>1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+  </select>
+
   <script src="captureSchedule.js"></script>
   <script src="setDate.js"></script>
   <script src="setTimeSelect.js"></script>
+  <script src="createSetDateselecter.js"></script>
 </body>
 </html>

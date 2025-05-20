@@ -70,6 +70,20 @@ body {
     font-size: 25px;
   }
 
+  #container {
+    position: fixed;
+    top: 250px;
+    left: 220px;
+    background-color: white; /* 背景が他の要素と重なるのを防ぐ */
+    padding: 10px;            /* 少し余白 */
+    z-index: 1000;            /* 他の要素より前面に出す */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* 見た目の区切り */
+  }
+
+  .select-template{
+    font-size: 30px;
+    margin-bottom: 46px;
+  }
 
 
   @font-face {
