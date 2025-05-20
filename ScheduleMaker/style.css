@@ -17,6 +17,7 @@ body {
   .parentDiv{
     width: 991px;
     height: 67px;
+    display: flex;
   }
 
   .DateDiv{
@@ -25,12 +26,26 @@ body {
     display: flex;
   }
 
+  .TimeDiv{
+    width: 130px;
+    height: 66px;
+    display: flex;
+  }
+
+  .timeFont{
+    color: white;
+    font-family: 'Nikumaru', sans-serif;
+    font-size: 36px;
+    margin-top: 17px;
+    margin-left: 4px;
+  }
+
   .dayOfMonthFont{
     font-family: 'Nikumaru', sans-serif;
     color: white;
     font-size: 40px;
     margin-top: 17px;
-    margin-left: 18px;
+    margin-left: 15px;
   }
 
   .dayOfWeekFont{
@@ -40,6 +55,22 @@ body {
     margin-top: 28px;
     margin-left: 1px;
   }
+
+  .timeSelect {
+    font-family: 'Nikumaru', sans-serif;
+    color: white;
+    background-color: transparent;
+    border: none;
+    appearance: none; /* スタイリング自由にする */
+    margin-top: 10px;
+    margin-left: 12px;
+  }
+  .timeSelect.clicked {
+    color: black;
+    font-size: 25px;
+  }
+
+
 
   @font-face {
   font-family: 'Nikumaru';
