@@ -18,3 +18,53 @@ document.addEventListener('DOMContentLoaded', function () {
       oneTimeSelect.appendChild(option);
     });
   });
+
+document.addEventListener('DOMContentLoaded', function () {
+
+  document.querySelectorAll('select[id^="select-"]').forEach(select => {
+
+    select.addEventListener('change', function () {
+
+      const idNum = this.id.match(/\d+/)?.[0];
+
+      if (!idNum) {
+        return;
+      }
+
+      const targetDiv = document.getElementById(`chilldDivArea-${idNum}`);
+
+      if (!targetDiv) {
+        return;
+      }
+
+      targetDiv.innerHTML = '';
+
+      let sourceDivId;
+      switch (this.value) {
+        case '1':
+          sourceDivId = 'oneTimeSelect';
+          break;
+        case '2':
+          sourceDivId = 'twoTimes';
+          break;
+        case '3':
+          sourceDivId = 'threeTimes';
+          break;
+        default:
+          return;
+      }
+
+      const sourceDiv = document.getElementById(sourceDivId);
+      if (!sourceDiv) {
+        return;
+      }
+
+      const clone = sourceDiv.cloneNode(true);
+      clone.removeAttribute('id');
+      clone.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
+
+      targetDiv.appendChild(clone);
+    });
+  });
+});
+
