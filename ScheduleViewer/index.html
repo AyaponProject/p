@@ -94,13 +94,6 @@
     <img id="scheduleImage" src="" alt="スケジュール画像" style="display: none;">
   
   <br>
-
-  <!-- スライダー（画像サイズ調整） -->
-  <div style="margin: 20px;">
-    <label for="sizeSlider">画像サイズ: </label>
-    <input type="range" id="sizeSlider" min="50" max="200" value="100" step="10">
-    <span id="sizeValue">100%</span>
-  </div>
   
   <div id="buttonContainer">
     <button id="prevBtn" disabled="true">Next</button>
@@ -117,16 +110,6 @@
     const imgTag = document.getElementById('scheduleImage');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
-
-    const sizeSlider = document.getElementById("sizeSlider");
-    const sizeValue = document.getElementById("sizeValue");
-    
-    // 初期設定
-    sizeSlider.addEventListener("input", () => {
-      const percentage = sizeSlider.value;
-      imgTag.style.width = `${percentage}%`;
-      sizeValue.textContent = `${percentage}%`;
-    });
 
     function updateImage() {
       if (images.length === 0) return;
