@@ -20,7 +20,7 @@ createApp({
         width: 1280,
         height: 720,
         useCORS: true,
-        backgroundColor: null // 背景透明にしたくないなら消してOK
+        //backgroundColor: null // 背景透明にしたくないなら消してOK
       }).then(canvas => {
         const link = document.createElement('a');
         link.href = canvas.toDataURL('image/png');

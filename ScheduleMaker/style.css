@@ -89,15 +89,19 @@ body {
     width: 73%;
   }
 
-  .titleSelect{
+  .titleSelect {
     font-family: 'CheckPoint', sans-serif;
     font-size: 38px;
     color: black;
     background-color: transparent;
-    appearance: none; /* スタイリング自由にする */
+    appearance: none;
     margin-top: 10px;
-    margin-left: 12px;
+    margin-left: 20px;/* 上のみ余白、左右なし */
+    border: none;
+    padding: 0;          /* 必要なら内側の余白も0に */
+    display: block;      /* 幅100%など効かせたいときに */
   }
+
 
   @font-face {
     font-family: 'Nikumaru';
